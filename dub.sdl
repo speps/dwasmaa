@@ -1,0 +1,7 @@
+name "aa"
+targetType "executable"
+toolchainRequirements "ldc >= 1.23"
+targetPath "dist"
+dependency "runtime" path="runtime"
+sourceFiles "aa.d"
+dflags "-i=." "-i=std" "-L=--allow-undefined"

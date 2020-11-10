@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>WASM AA</title>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<script src="/wasm.js"></script>
+		<script>
+			WebAssembly.instantiateStreaming(fetch('./aa.wasm'), importObject)
+				.then(function(obj) {
+					memory = obj.instance.exports.memory;
+					exports = obj.instance.exports;
+					obj.instance.exports._start();
+				});
+		</script>
+	</body>
+</html>
