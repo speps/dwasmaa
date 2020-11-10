@@ -711,7 +711,7 @@ private:
   Entry[] entries;
 }
 
-extern (C) void* _aaGetY(AA* aa, const TypeInfo_AssociativeArray aati, in size_t valuesize, in void* pkey) {
+extern (C) void* _aaGetY(ref AA* aa, const TypeInfo_AssociativeArray aati, in size_t valuesize, in void* pkey) {
   if (aa.impl is null) {
     aa.impl = new AAImpl();
   }
