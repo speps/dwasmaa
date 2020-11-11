@@ -693,9 +693,6 @@ extern (C) void[] _d_newarrayU(const TypeInfo ti, size_t length) {
 
 struct AA {
   AAImpl* impl = null;
-  private @property bool empty() const pure nothrow @nogc {
-    return impl is null || !impl.length;
-  }
 }
 
 private struct AAImpl {
@@ -711,7 +708,7 @@ private:
   Entry[] entries;
 }
 
-extern (C) void* _aaGetY(ref AA* aa, const TypeInfo_AssociativeArray aati, in size_t valuesize, in void* pkey) {
+extern (C) void* _aaGetY(AA* aa, const TypeInfo_AssociativeArray aati, in size_t valuesize, in void* pkey) {
   if (aa.impl is null) {
     aa.impl = new AAImpl();
   }
@@ -729,11 +726,14 @@ extern (C) void* _aaGetY(ref AA* aa, const TypeInfo_AssociativeArray aati, in si
   return buffer.ptr;
 }
 
-extern (C) void* _aaInX(AA aa, const TypeInfo keyti, in void* pkey) {
+extern (C) void* _aaInX(AAImpl* aa, const TypeInfo keyti, in void* pkey) {
+  if (aa is null || !aa.length) {
+    return null;
+  }
   wasm.write("_aaInY");
-  wasm.write(aa.impl.length);
+  wasm.write(aa.length);
   const hash = keyti.getHash(pkey);
-  foreach (entry; aa.impl.entries) {
+  foreach (entry; aa.entries) {
     if (entry.key == hash) {
       return entry.value.ptr;
     }
