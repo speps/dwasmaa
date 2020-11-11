@@ -9,7 +9,7 @@ python3 -m http.server 8080
 
 and then browse to `http://localhost:8080/`
 
-Fixed as of 54ebabfde83084e3df0ab4e55c46dfeeaf124737.
+Fixed by 1c8f79f.
 
 JS console (F12) should show
 
